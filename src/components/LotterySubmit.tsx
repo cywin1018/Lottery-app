@@ -9,11 +9,11 @@ const LotterySubmit = ({ onSubmit }: SubmitProps) => {
     <Button
       onClick={onSubmit}
       sx={{
-        fontSize: "1.25rem", // 글자 크기 확대
+        fontSize: "1.25rem",
         fontWeight: "bold",
         color: "#fff",
         backgroundColor: "#3f51b5",
-        padding: "0.7rem 3rem", // 패딩을 더 크게 설정하여 버튼 크기 확대
+        padding: "0.7rem 2.3rem",
         borderRadius: "8px",
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
         "&:hover": {

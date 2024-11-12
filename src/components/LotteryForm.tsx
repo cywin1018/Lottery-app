@@ -13,33 +13,42 @@ const LotteryForm = ({
   onNameChange,
   onNumberChange,
 }: FormProps) => {
+  const handleNumberChange = (index: number, value: string) => {
+    if (value.length <= 5) {
+      onNumberChange(index, value);
+    }
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "row",
-        gap: 1,
       }}
     >
-      <FormControl>
+      <FormControl sx={{ padding: 1 }}>
         <FormLabel>이름</FormLabel>
         <Input
-          placeholder="이름을 입력하세요"
+          sx={{ width: "7rem" }}
           value={name}
           onChange={(e) => onNameChange(e.target.value)}
         />
-        <FormHelperText>이름 입력 부탁드려요.</FormHelperText>
+        <FormHelperText sx={{ fontSize: "0.8rem" }}>
+          이름 입력 부탁드려요.
+        </FormHelperText>
       </FormControl>
       {numbers.map((num, index) => (
-        <FormControl key={index}>
+        <FormControl key={index} sx={{ padding: 1 }}>
           <FormLabel>숫자{index + 1}</FormLabel>
           <Input
+            sx={{ width: "7rem" }}
             type="number"
-            placeholder="숫자를 입력하세요"
             value={num || ""}
-            onChange={(e) => onNumberChange(index, e.target.value)}
+            onChange={(e) => handleNumberChange(index, e.target.value)}
           />
-          <FormHelperText>숫자는 10,000~30,000 사이</FormHelperText>
+          <FormHelperText sx={{ fontSize: "0.8rem" }}>
+            10,000~30,000 사이
+          </FormHelperText>
         </FormControl>
       ))}
     </Box>
