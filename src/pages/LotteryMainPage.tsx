@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 
 import LotteryTitle from "../components/LotteryTittle";
 import LotteryForm from "../components/LotteryForm";
@@ -9,6 +17,7 @@ import { supabase } from "../supabase/supabaseClient";
 const LotteryMainPage = () => {
   const [name, setName] = useState("");
   const [numbers, setNumbers] = useState<number[]>(Array(6).fill(0));
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // 모달 상태 추가
 
   const handleNumberChange = (index: number, value: string) => {
     const updatedNumbers = [...numbers];
@@ -42,10 +51,15 @@ const LotteryMainPage = () => {
       console.error("Error saving data:", error);
     } else {
       console.log("Data saved successfully:", data);
+      setIsDialogOpen(true);
     }
 
     setName("");
     setNumbers(Array(6).fill(0));
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
   };
 
   return (
@@ -74,6 +88,18 @@ const LotteryMainPage = () => {
           onNumberChange={handleNumberChange}
         />
         <LotterySubmit onSubmit={handleSubmit} />
+
+        <Dialog open={isDialogOpen} onClose={handleDialogClose}>
+          <DialogTitle>제출 완료</DialogTitle>
+          <DialogContent>
+            <DialogContentText>제출이 완료되었습니다.</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogClose} color="primary">
+              확인
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Box>
   );
